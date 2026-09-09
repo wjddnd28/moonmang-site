@@ -46,13 +46,6 @@ select:focus,input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 
 
 main{padding:36px 0 80px}
 
-/* gate */
-.gate{max-width:440px;margin:76px auto;background:#fff;border:1px solid var(--line);padding:40px 36px;border-radius:2px}
-.gate h1{font-size:22px;font-weight:700;letter-spacing:-0.03em}
-.gate p{margin-top:10px;font-size:14px;color:var(--muted);line-height:1.75}
-.gate form{margin-top:24px;display:flex;flex-direction:column;gap:12px}
-.gate input{width:100%}
-
 /* kpis */
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .kpi{background:#fff;padding:24px 24px 26px}
@@ -106,29 +99,18 @@ tbody tr:last-child td{border-bottom:0}
     <a href="index.html"><img src="images/logo.png" alt="Moonmang"></a>
     <div class="top__r">
       <span class="tag">방문 통계</span>
-      <select id="range" hidden>
+      <select id="range">
         <option value="7">최근 7일</option>
         <option value="30" selected>최근 30일</option>
         <option value="90">최근 90일</option>
         <option value="365">최근 1년</option>
       </select>
-      <button class="btn--quiet" id="signout" type="button" hidden>키 지우기</button>
     </div>
   </div>
 </header>
 
 <main>
   <div class="shell">
-
-    <section class="gate" id="gate" hidden>
-      <h1>대시보드 키 입력</h1>
-      <p>Cloudflare에 설정한 <code>STATS_KEY</code> 값을 입력하세요. 이 브라우저에만 저장되며 서버로는 조회할 때만 전송됩니다.</p>
-      <form id="gateForm">
-        <input type="password" id="keyInput" placeholder="STATS_KEY" autocomplete="current-password" required>
-        <button class="btn" type="submit">열기</button>
-      </form>
-      <p class="msg err" id="gateMsg" style="padding:14px 0 0;text-align:left" hidden></p>
-    </section>
 
     <div id="board" hidden>
       <div class="kpis">
@@ -174,7 +156,6 @@ tbody tr:last-child td{border-bottom:0}
 (function () {
   "use strict";
 
-  var STORE = "mm_stats_key";
   var el = function (id) { return document.getElementById(id); };
   var fmt = function (n) { return (n || 0).toLocaleString("ko-KR"); };
 
@@ -196,13 +177,6 @@ tbody tr:last-child td{border-bottom:0}
       0x1f1e6 + cc.charCodeAt(1) - 65
     );
   }
-
-  function getKey() {
-    try { return sessionStorage.getItem(STORE) || localStorage.getItem(STORE); }
-    catch (e) { return null; }
-  }
-  function setKey(k) { try { localStorage.setItem(STORE, k); } catch (e) {} }
-  function clearKey() { try { localStorage.removeItem(STORE); sessionStorage.removeItem(STORE); } catch (e) {} }
 
   function show(id, on) { el(id).hidden = !on; }
 
@@ -271,43 +245,41 @@ tbody tr:last-child td{border-bottom:0}
     }).join("") : "<tr><td colspan='2' style='color:var(--muted)'>아직 데이터가 없습니다.</td></tr>";
   }
 
-  /* ---------- load ---------- */
+  /* ---------- load ----------
+     Access is gated by HTTP Basic auth in functions/_middleware.js, so the
+     browser attaches the credentials itself and there is nothing to store
+     or send from here. */
   function load() {
-    var key = getKey();
-    if (!key) {
-      show("loading", false); show("board", false); show("gate", true);
-      return;
-    }
-    show("gate", false); show("loading", true);
+    show("loading", true);
 
     var days = parseInt(el("range").value, 10) || 30;
 
-    fetch("/api/stats?days=" + days, { headers: { "X-Stats-Key": key } })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, status: r.status, d: d }; }); })
+    fetch("/api/stats?days=" + days, { credentials: "same-origin" })
+      .then(function (r) {
+        return r.json()
+          .catch(function () { return {}; })
+          .then(function (d) { return { ok: r.ok, status: r.status, d: d }; });
+      })
       .then(function (res) {
         show("loading", false);
 
         if (res.status === 401) {
-          clearKey();
-          show("gate", true);
-          el("gateMsg").textContent = "키가 맞지 않습니다. 다시 입력해 주세요.";
-          show("gateMsg", true);
+          show("board", true);
+          el("boardMsg").textContent = "인증이 만료되었습니다. 페이지를 새로고침해 다시 로그인하세요.";
+          show("boardMsg", true);
           return;
         }
         if (!res.ok) {
           show("board", true);
           el("boardMsg").innerHTML = res.d.error === "no_database"
             ? "D1 데이터베이스가 아직 연결되지 않았습니다. Cloudflare Pages 설정에서 <code>DB</code> 바인딩을 추가하세요."
-            : res.d.error === "not_configured"
-              ? "<code>STATS_KEY</code> 환경변수가 설정되지 않았습니다."
-              : "불러오지 못했습니다: " + (res.d.detail || res.d.error);
+            : "불러오지 못했습니다: " + (res.d.detail || res.d.error || res.status);
           show("boardMsg", true);
           return;
         }
 
         var d = res.d;
         show("board", true); show("boardMsg", false);
-        show("range", true); show("signout", true);
 
         el("kToday").innerHTML = fmt(d.totals.today) + "<small>회</small>";
         el("k7").innerHTML = fmt(d.totals.last7) + "<small>회</small>";
@@ -328,22 +300,7 @@ tbody tr:last-child td{border-bottom:0}
       });
   }
 
-  el("gateForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var v = el("keyInput").value.trim();
-    if (!v) return;
-    setKey(v);
-    el("keyInput").value = "";
-    show("gateMsg", false);
-    load();
-  });
-
   el("range").addEventListener("change", load);
-  el("signout").addEventListener("click", function () {
-    clearKey();
-    show("board", false); show("range", false); show("signout", false);
-    show("gate", true);
-  });
 
   var resizeTimer;
   window.addEventListener("resize", function () {

@@ -1,9 +1,8 @@
 /**
  * GET /api/stats?days=30 — aggregated visit counts for the dashboard.
  *
- * Protected by the STATS_KEY environment variable, sent as an
- * `X-Stats-Key` header. The key lives only in Cloudflare's dashboard
- * (Settings → Environment variables, encrypted) — never in this repo.
+ * Access control lives in functions/_middleware.js, which challenges this
+ * path with HTTP Basic auth before the request ever reaches here.
  */
 
 const json = (data, status = 200) =>
@@ -15,25 +14,7 @@ const json = (data, status = 200) =>
     },
   });
 
-/** length-independent comparison, so the response time leaks nothing */
-function safeEqual(a, b) {
-  if (typeof a !== "string" || typeof b !== "string") return false;
-  const enc = new TextEncoder();
-  const x = enc.encode(a);
-  const y = enc.encode(b);
-  let diff = x.length ^ y.length;
-  const len = Math.max(x.length, y.length);
-  for (let i = 0; i < len; i++) diff |= (x[i] || 0) ^ (y[i] || 0);
-  return diff === 0;
-}
-
 export async function onRequestGet({ request, env }) {
-  if (!env.STATS_KEY) {
-    return json({ error: "not_configured", hint: "Set the STATS_KEY environment variable." }, 503);
-  }
-  if (!safeEqual(request.headers.get("X-Stats-Key") || "", env.STATS_KEY)) {
-    return json({ error: "unauthorized" }, 401);
-  }
   if (!env.DB) {
     return json({ error: "no_database", hint: "Bind a D1 database as DB." }, 503);
   }
