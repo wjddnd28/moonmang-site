@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>방문 통계 — Moonmang</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#0B1C24;--ink-2:#12323F;--teal:#10B0A8;--teal-600:#0C8F89;
+  --mist:#F4F7F8;--mist-2:#EDF2F4;--line:#E1E8EB;--muted:#5D717A;
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",system-ui,sans-serif;
+}
+body{
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--mist);
+  font-size:15px;line-height:1.65;letter-spacing:-0.01em;word-break:keep-all;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+table{border-collapse:collapse;width:100%}
+
+.shell{max-width:1120px;margin:0 auto;padding:0 24px}
+
+.top{background:#fff;border-bottom:1px solid var(--line);padding:18px 0}
+.top__in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.top img{height:22px;width:auto}
+.top__r{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tag{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-600)}
+
+select,input[type=password]{
+  font:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);
+  border-radius:2px;background:#fff;color:var(--ink);
+}
+select:focus,input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,176,168,.14)}
+.btn{
+  padding:10px 18px;border-radius:2px;font-size:14px;font-weight:600;
+  background:var(--ink);color:#fff;transition:background .2s ease;
+}
+.btn:hover{background:var(--ink-2)}
+.btn--quiet{background:none;color:var(--muted);padding:10px 6px;text-decoration:underline;text-underline-offset:3px}
+.btn--quiet:hover{background:none;color:var(--ink)}
+
+main{padding:36px 0 80px}
+
+/* gate */
+.gate{max-width:440px;margin:76px auto;background:#fff;border:1px solid var(--line);padding:40px 36px;border-radius:2px}
+.gate h1{font-size:22px;font-weight:700;letter-spacing:-0.03em}
+.gate p{margin-top:10px;font-size:14px;color:var(--muted);line-height:1.75}
+.gate form{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.gate input{width:100%}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpi{background:#fff;padding:24px 24px 26px}
+.kpi__l{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kpi__v{margin-top:12px;font-size:clamp(28px,3.4vw,38px);line-height:1;font-weight:800;letter-spacing:-0.045em}
+.kpi__v small{font-size:.4em;font-weight:600;color:var(--muted);margin-left:5px;letter-spacing:-0.01em}
+
+.card{background:#fff;border:1px solid var(--line);padding:28px 28px 30px;margin-top:24px;border-radius:2px}
+.card__hd{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.card h2{font-size:17px;font-weight:700;letter-spacing:-0.025em}
+.card__sub{font-size:13px;color:var(--muted)}
+
+/* daily chart */
+.chart{width:100%;height:210px;display:block;overflow:visible}
+.chart .bar{fill:var(--teal);opacity:.85;transition:opacity .15s ease}
+.chart .bar:hover{opacity:1;fill:var(--teal-600)}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .lbl{font-size:10px;fill:var(--muted);font-family:var(--font)}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.cols .card{margin-top:0}
+
+th,td{text-align:left;padding:9px 0;font-size:14px;border-bottom:1px solid var(--line)}
+th{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+.cc{display:flex;align-items:center;gap:10px}
+.cc i{font-style:normal;font-size:17px;line-height:1}
+.meter{position:relative;height:4px;background:var(--mist-2);border-radius:2px;margin-top:6px;overflow:hidden}
+.meter span{position:absolute;inset:0 auto 0 0;background:var(--teal);border-radius:2px}
+.path{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;word-break:break-all}
+
+.msg{padding:34px 0;text-align:center;color:var(--muted);font-size:14px;line-height:1.9}
+.msg code{background:var(--mist-2);padding:2px 6px;border-radius:3px;font-size:13px}
+.err{color:#C2453B}
+
+@media (max-width:820px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cols{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .shell{padding:0 16px}
+  .card{padding:22px 20px 24px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="shell top__in">
+    <a href="index.html"><img src="images/logo.png" alt="Moonmang"></a>
+    <div class="top__r">
+      <span class="tag">방문 통계</span>
+      <select id="range" hidden>
+        <option value="7">최근 7일</option>
+        <option value="30" selected>최근 30일</option>
+        <option value="90">최근 90일</option>
+        <option value="365">최근 1년</option>
+      </select>
+      <button class="btn--quiet" id="signout" type="button" hidden>키 지우기</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="shell">
+
+    <section class="gate" id="gate" hidden>
+      <h1>대시보드 키 입력</h1>
+      <p>Cloudflare에 설정한 <code>STATS_KEY</code> 값을 입력하세요. 이 브라우저에만 저장되며 서버로는 조회할 때만 전송됩니다.</p>
+      <form id="gateForm">
+        <input type="password" id="keyInput" placeholder="STATS_KEY" autocomplete="current-password" required>
+        <button class="btn" type="submit">열기</button>
+      </form>
+      <p class="msg err" id="gateMsg" style="padding:14px 0 0;text-align:left" hidden></p>
+    </section>
+
+    <div id="board" hidden>
+      <div class="kpis">
+        <div class="kpi"><p class="kpi__l">오늘</p><p class="kpi__v" id="kToday">–</p></div>
+        <div class="kpi"><p class="kpi__l">최근 7일</p><p class="kpi__v" id="k7">–</p></div>
+        <div class="kpi"><p class="kpi__l">기간 내 국가 수</p><p class="kpi__v" id="kCountries">–</p></div>
+        <div class="kpi"><p class="kpi__l">누적</p><p class="kpi__v" id="kAll">–</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card__hd">
+          <h2>일별 방문</h2>
+          <p class="card__sub" id="daySub"></p>
+        </div>
+        <svg class="chart" id="chart" role="img" aria-label="일별 방문 수 막대 그래프"></svg>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <div class="card__hd"><h2>국가별</h2><p class="card__sub" id="cSub"></p></div>
+          <table>
+            <thead><tr><th>국가</th><th class="num">방문</th><th class="num">비중</th></tr></thead>
+            <tbody id="tCountry"></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card__hd"><h2>페이지별</h2></div>
+          <table>
+            <thead><tr><th>경로</th><th class="num">방문</th></tr></thead>
+            <tbody id="tPath"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="msg" id="boardMsg" hidden></p>
+    </div>
+
+    <p class="msg" id="loading">불러오는 중…</p>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var STORE = "mm_stats_key";
+  var el = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return (n || 0).toLocaleString("ko-KR"); };
+
+  var NAMES = {
+    KR:"대한민국", US:"미국", CN:"중국", JP:"일본", TW:"대만", HK:"홍콩", SG:"싱가포르",
+    VN:"베트남", TH:"태국", MY:"말레이시아", ID:"인도네시아", PH:"필리핀", IN:"인도",
+    DE:"독일", FR:"프랑스", GB:"영국", IT:"이탈리아", ES:"스페인", NL:"네덜란드",
+    PL:"폴란드", SE:"스웨덴", CH:"스위스", AT:"오스트리아", BE:"벨기에", DK:"덴마크",
+    FI:"핀란드", NO:"노르웨이", CZ:"체코", PT:"포르투갈", IE:"아일랜드", TR:"튀르키예",
+    RU:"러시아", UA:"우크라이나", CA:"캐나다", MX:"멕시코", BR:"브라질", AR:"아르헨티나",
+    AU:"호주", NZ:"뉴질랜드", AE:"아랍에미리트", SA:"사우디아라비아", IL:"이스라엘",
+    ZA:"남아프리카공화국", EG:"이집트", XX:"알 수 없음"
+  };
+
+  function flag(cc) {
+    if (!/^[A-Z]{2}$/.test(cc)) return "🏳️";
+    return String.fromCodePoint(
+      0x1f1e6 + cc.charCodeAt(0) - 65,
+      0x1f1e6 + cc.charCodeAt(1) - 65
+    );
+  }
+
+  function getKey() {
+    try { return sessionStorage.getItem(STORE) || localStorage.getItem(STORE); }
+    catch (e) { return null; }
+  }
+  function setKey(k) { try { localStorage.setItem(STORE, k); } catch (e) {} }
+  function clearKey() { try { localStorage.removeItem(STORE); sessionStorage.removeItem(STORE); } catch (e) {} }
+
+  function show(id, on) { el(id).hidden = !on; }
+
+  /* ---------- daily bar chart ---------- */
+  function drawChart(rows, days) {
+    var svg = el("chart");
+    var W = svg.clientWidth || 900, H = 210;
+    var padL = 34, padB = 22, padT = 10;
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+
+    // fill in the missing days so gaps read as zero, not as absence
+    var map = {};
+    rows.forEach(function (r) { map[r.day] = r.n; });
+    // KST buckets, matching how the server stores them
+    var series = [];
+    for (var i = days - 1; i >= 0; i--) {
+      var d = new Date(Date.now() + 32400000 - i * 86400000).toISOString().slice(0, 10);
+      series.push({ day: d, n: map[d] || 0 });
+    }
+
+    var max = Math.max(1, Math.max.apply(null, series.map(function (s) { return s.n; })));
+    var plotH = H - padB - padT;
+    var slot = (W - padL) / series.length;
+    var bw = Math.max(1, Math.min(26, slot * 0.72));
+    var ns = "http://www.w3.org/2000/svg";
+    var out = "";
+
+    [0, 0.5, 1].forEach(function (t) {
+      var y = padT + plotH * t;
+      out += '<line class="grid" x1="' + padL + '" y1="' + y + '" x2="' + W + '" y2="' + y + '"/>';
+      out += '<text class="lbl" x="0" y="' + (y + 3.5) + '">' + Math.round(max * (1 - t)) + "</text>";
+    });
+
+    series.forEach(function (s, i) {
+      var h = (s.n / max) * plotH;
+      var x = padL + slot * i + (slot - bw) / 2;
+      var y = padT + plotH - h;
+      out += '<rect class="bar" x="' + x + '" y="' + y + '" width="' + bw + '" height="' + Math.max(h, s.n ? 2 : 0) +
+             '" rx="1"><title>' + s.day + " · " + s.n + "회</title></rect>";
+      var step = Math.ceil(series.length / 10);
+      if (i % step === 0 || i === series.length - 1) {
+        out += '<text class="lbl" text-anchor="middle" x="' + (x + bw / 2) + '" y="' + (H - 6) + '">' +
+               s.day.slice(5).replace("-", ".") + "</text>";
+      }
+    });
+
+    svg.innerHTML = out;
+  }
+
+  function renderCountries(rows) {
+    var total = rows.reduce(function (a, r) { return a + r.n; }, 0) || 1;
+    el("tCountry").innerHTML = rows.length ? rows.map(function (r) {
+      var pct = (r.n / total) * 100;
+      return "<tr><td><span class='cc'><i>" + flag(r.country) + "</i>" +
+             (NAMES[r.country] || r.country) + "</span>" +
+             "<div class='meter'><span style='width:" + pct.toFixed(1) + "%'></span></div></td>" +
+             "<td class='num'>" + fmt(r.n) + "</td>" +
+             "<td class='num'>" + pct.toFixed(1) + "%</td></tr>";
+    }).join("") : "<tr><td colspan='3' style='color:var(--muted)'>아직 데이터가 없습니다.</td></tr>";
+  }
+
+  function renderPaths(rows) {
+    el("tPath").innerHTML = rows.length ? rows.map(function (r) {
+      return "<tr><td class='path'>" + r.path.replace(/[<>&]/g, "") + "</td>" +
+             "<td class='num'>" + fmt(r.n) + "</td></tr>";
+    }).join("") : "<tr><td colspan='2' style='color:var(--muted)'>아직 데이터가 없습니다.</td></tr>";
+  }
+
+  /* ---------- load ---------- */
+  function load() {
+    var key = getKey();
+    if (!key) {
+      show("loading", false); show("board", false); show("gate", true);
+      return;
+    }
+    show("gate", false); show("loading", true);
+
+    var days = parseInt(el("range").value, 10) || 30;
+
+    fetch("/api/stats?days=" + days, { headers: { "X-Stats-Key": key } })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, status: r.status, d: d }; }); })
+      .then(function (res) {
+        show("loading", false);
+
+        if (res.status === 401) {
+          clearKey();
+          show("gate", true);
+          el("gateMsg").textContent = "키가 맞지 않습니다. 다시 입력해 주세요.";
+          show("gateMsg", true);
+          return;
+        }
+        if (!res.ok) {
+          show("board", true);
+          el("boardMsg").innerHTML = res.d.error === "no_database"
+            ? "D1 데이터베이스가 아직 연결되지 않았습니다. Cloudflare Pages 설정에서 <code>DB</code> 바인딩을 추가하세요."
+            : res.d.error === "not_configured"
+              ? "<code>STATS_KEY</code> 환경변수가 설정되지 않았습니다."
+              : "불러오지 못했습니다: " + (res.d.detail || res.d.error);
+          show("boardMsg", true);
+          return;
+        }
+
+        var d = res.d;
+        show("board", true); show("boardMsg", false);
+        show("range", true); show("signout", true);
+
+        el("kToday").innerHTML = fmt(d.totals.today) + "<small>회</small>";
+        el("k7").innerHTML = fmt(d.totals.last7) + "<small>회</small>";
+        el("kCountries").innerHTML = fmt(d.totals.countries) + "<small>개국</small>";
+        el("kAll").innerHTML = fmt(d.totals.all_time) + "<small>회</small>";
+
+        el("daySub").textContent = d.from + " ~ 오늘";
+        el("cSub").textContent = "최근 " + d.days + "일";
+
+        drawChart(d.byDay, d.days);
+        renderCountries(d.byCountry);
+        renderPaths(d.byPath);
+      })
+      .catch(function (e) {
+        show("loading", false); show("board", true);
+        el("boardMsg").textContent = "네트워크 오류: " + e.message;
+        show("boardMsg", true);
+      });
+  }
+
+  el("gateForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = el("keyInput").value.trim();
+    if (!v) return;
+    setKey(v);
+    el("keyInput").value = "";
+    show("gateMsg", false);
+    load();
+  });
+
+  el("range").addEventListener("change", load);
+  el("signout").addEventListener("click", function () {
+    clearKey();
+    show("board", false); show("range", false); show("signout", false);
+    show("gate", true);
+  });
+
+  var resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (!el("board").hidden) load();
+    }, 300);
+  });
+
+  load();
+})();
+</script>
+
+</body>
+</html>
