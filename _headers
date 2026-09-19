@@ -16,8 +16,11 @@
   Cache-Control: no-store
   X-Robots-Tag: noindex
 
+# Images and video are replaced in place, under the same filename, whenever
+# the site is updated by hand. "immutable" would tell browsers to keep the
+# old copy for a year and never look again, so revalidate daily instead.
 /images/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /hero.mp4
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
