@@ -39,6 +39,7 @@
   "image": "https://moonmang.com/images/hero-poster.jpg",
   "description": "Import and distribution of IT hardware and desk peripherals for the Korean market.",
   "slogan": "Few brands, fully handled.",
+  "sameAs": ["https://www.linkedin.com/in/jungung-moon-66426a438/"],
   "areaServed": { "@type": "Country", "name": "South Korea" },
   "knowsAbout": [
     "IT hardware import into South Korea",
@@ -50,7 +51,12 @@
   ],
   "email": "info@moonmang.com",
   "telephone": "+82-70-7954-2573",
-  "founder": { "@type": "Person", "name": "Jungung Moon" },
+  "founder": {
+    "@type": "Person",
+    "name": "Jungung Moon",
+    "jobTitle": "Founder",
+    "sameAs": "https://www.linkedin.com/in/jungung-moon-66426a438/"
+  },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "#2601, Bldg. 1110, 10 Yongmin-ro",
@@ -350,6 +356,18 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
 }
 .logos img:hover{background:var(--mist)}
 
+/* WhatsApp QR + LinkedIn */
+.reach{
+  margin-top:40px;padding-top:34px;border-top:1px solid rgba(255,255,255,.14);
+  display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+}
+.reach__qr{background:#fff;padding:10px;border-radius:4px;flex:none;line-height:0}
+.reach__qr img{width:124px;height:124px;display:block}
+.reach__side{flex:1;min-width:210px}
+.reach__label{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.reach__note{margin-top:9px;font-size:13.5px;line-height:1.75;color:rgba(255,255,255,.66)}
+.reach__side .btn{margin-top:16px}
+
 /* consent + modal */
 .field label.check{
   display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;cursor:pointer;
@@ -494,12 +512,7 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
     <nav class="nav" aria-label="Main">
       <a href="#top" data-kr="홈">Home</a>
       <a href="#about" data-kr="회사소개">About</a>
-      <a href="#founder" data-kr="대표 한마디">Founder's Note</a>
-      <a href="#why" data-kr="강점">Why Us</a>
-      <a href="#services" data-kr="사업영역">Services</a>
-      <a href="#process" data-kr="진행 절차">Process</a>
       <a href="#compliance" data-kr="규제 대응">Compliance</a>
-      <a href="#brands" data-kr="취급 브랜드">Brands</a>
       <a href="#channels" data-kr="판매 채널">Channels</a>
       <a href="#contact" data-kr="문의">Contact</a>
     </nav>
@@ -520,12 +533,7 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
 <div class="drawer" id="drawer">
   <a href="#top" data-kr="홈">Home</a>
   <a href="#about" data-kr="회사소개">About</a>
-  <a href="#founder" data-kr="대표 한마디">Founder's Note</a>
-  <a href="#why" data-kr="강점">Why Us</a>
-  <a href="#services" data-kr="사업영역">Services</a>
-  <a href="#process" data-kr="진행 절차">Process</a>
   <a href="#compliance" data-kr="규제 대응">Compliance</a>
-  <a href="#brands" data-kr="취급 브랜드">Brands</a>
   <a href="#channels" data-kr="판매 채널">Channels</a>
   <a href="#contact" data-kr="문의">Contact</a>
 </div>
@@ -638,134 +646,6 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
     </div>
   </section>
 
-  <!-- ================= WHY US ================= -->
-  <section class="section" id="why">
-    <div class="shell">
-      <p class="eyebrow reveal" data-kr="강점">Why Us</p>
-      <h2 class="h2 reveal" data-kr="브랜드가 문망을 고를 이유">Why a brand would pick us</h2>
-
-      <div class="grid-2" style="margin-top:56px">
-        <div class="cell reveal">
-          <p class="cell__no">01</p>
-          <h3><span data-kr="파는 사람이 채널을 맡습니다">An operator runs your channel</span><small data-kr="An operator runs your channel">파는 사람이 채널을 맡습니다</small></h3>
-          <p data-kr="국내 오픈마켓에서 직접 IT주변기기를 운영해봤습니다. 상세페이지, 가격, 리뷰, 반품이 서로 어떻게 얽히는지 겪어본 사람이 채널을 관리합니다.">
-            We have run IT peripherals on Korean open markets ourselves. The person managing your channel has already lived through how product pages, price, reviews and returns pull on each other.
-          </p>
-        </div>
-        <div class="cell reveal d1">
-          <p class="cell__no">02</p>
-          <h3><span data-kr="IT기기 한 카테고리만 봅니다">One category: IT hardware</span><small data-kr="One category: IT hardware">IT기기 한 카테고리만 봅니다</small></h3>
-          <p data-kr="식품도 화장품도 하지 않습니다. 키보드, 마우스, 모니터 주변기기처럼 책상 위에서 쓰이는 기기만 다룹니다. 인증 요건과 구매층이 반복되기 때문에 판단이 빨라집니다.">
-            No food, no cosmetics. We handle what sits on a desk — keyboards, mice, monitor accessories and the peripherals around them. The certification requirements and the buyers repeat, so our judgment gets faster.
-          </p>
-        </div>
-        <div class="cell reveal d2">
-          <p class="cell__no">03</p>
-          <h3><span data-kr="담당이 바뀌지 않습니다">Your contact does not change</span><small data-kr="Your contact does not change">담당이 바뀌지 않습니다</small></h3>
-          <p data-kr="처음 메일을 주고받은 사람이 인증과 통관, 채널 운영, 고객 응대까지 계속 맡습니다. 중간에 다른 담당자에게 인계되어 설명을 반복할 일이 없습니다.">
-            The person who answers your first email stays with certification, customs, channel work and customer response. You will not be handed to someone new and asked to explain your product again.
-          </p>
-        </div>
-        <div class="cell reveal d3">
-          <p class="cell__no">04</p>
-          <h3><span data-kr="한국 규제를 먼저 확인합니다">Korean rules checked first</span><small data-kr="Korean rules checked first">한국 규제를 먼저 확인합니다</small></h3>
-          <p data-kr="무선 기능이 있는지, 전원을 어떻게 쓰는지, 배터리가 들어가는지에 따라 필요한 인증이 달라집니다. 조건을 협의하기 전에 이 부분부터 확인하고 알려드립니다.">
-            Whether a product has a radio, how it is powered and whether it carries a battery all change what Korea requires. We check that before terms are discussed, and tell you what we find.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SERVICES ================= -->
-  <section class="section section--mist" id="services">
-    <div class="shell">
-      <p class="eyebrow reveal" data-kr="사업영역">Services</p>
-      <h2 class="h2 reveal" data-kr="어디부터 어디까지 하는지">What we take off your desk</h2>
-
-      <div class="grid-3" style="margin-top:56px">
-        <div class="cell reveal">
-          <p class="cell__no">01</p>
-          <h3><span data-kr="브랜드 발굴">Brand Sourcing</span><small data-kr="Brand Sourcing">브랜드 발굴</small></h3>
-          <p data-kr="한국 책상 환경과 가격대에 맞는 해외 IT기기 브랜드를 찾고 접촉합니다.">
-            Finding and approaching overseas IT hardware brands that fit Korean desks and Korean price points.
-          </p>
-        </div>
-        <div class="cell reveal d1">
-          <p class="cell__no">02</p>
-          <h3><span data-kr="수입·통관">Import &amp; Customs</span><small data-kr="Import &amp; Customs">수입·통관</small></h3>
-          <p data-kr="HS 코드 확인, 수입 신고, 관세·부가세 처리와 입항 이후 절차를 진행합니다.">
-            HS code classification, import declaration, duties and VAT, and everything that follows arrival at port.
-          </p>
-        </div>
-        <div class="cell reveal d2">
-          <p class="cell__no">03</p>
-          <h3><span data-kr="인증 대응">Certification</span><small data-kr="Certification">인증 대응</small></h3>
-          <p data-kr="제품 사양에 따라 필요한 KC 인증과 전파 적합성평가 요건을 확인하고 준비합니다.">
-            Working out which KC and radio conformity requirements apply to your specification, then preparing them.
-          </p>
-        </div>
-        <div class="cell reveal">
-          <p class="cell__no">04</p>
-          <h3><span data-kr="국내 유통">Distribution</span><small data-kr="Distribution">국내 유통</small></h3>
-          <p data-kr="온라인 채널 입점과 가격·재고 운영을 맡습니다. 채널은 브랜드와 협의해 정합니다.">
-            Onboarding to online channels and running price and stock. Which channels we use is agreed with you.
-          </p>
-        </div>
-        <div class="cell reveal d1">
-          <p class="cell__no">05</p>
-          <h3><span data-kr="판매 콘텐츠 제작">Sales Content</span><small data-kr="Sales Content">판매 콘텐츠 제작</small></h3>
-          <p data-kr="한국 소비자가 읽는 방식에 맞춰 상세페이지와 제품 설명을 다시 씁니다.">
-            Rewriting product pages and product copy the way Korean shoppers actually read them.
-          </p>
-        </div>
-        <div class="cell reveal d2">
-          <p class="cell__no">06</p>
-          <h3><span data-kr="고객 응대·사후관리">Aftersales</span><small data-kr="Aftersales">고객 응대·사후관리</small></h3>
-          <p data-kr="문의와 교환·반품 처리, 리뷰 관리까지 판매 이후를 계속 맡습니다.">
-            Enquiries, exchanges, returns and reviews — the part that starts after the sale and does not end.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PROCESS ================= -->
-  <section class="section section--ink" id="process">
-    <div class="shell">
-      <p class="eyebrow reveal" data-kr="진행 절차">Process</p>
-      <h2 class="h2 reveal" data-kr="첫 메일부터 판매까지">From first email to first sale</h2>
-
-      <div class="steps">
-        <div class="step reveal">
-          <p class="step__no">01</p>
-          <h3><span data-kr="문의">Contact</span><small data-kr="Contact">문의</small></h3>
-          <p data-kr="브랜드 소개와 제품 자료, 사양을 받습니다.">We receive your brand introduction, product materials and specifications.</p>
-        </div>
-        <div class="step reveal d1">
-          <p class="step__no">02</p>
-          <h3><span data-kr="검토">Review</span><small data-kr="Review">검토</small></h3>
-          <p data-kr="한국 시장 적합성과 인증 요건, 예상 소비자가를 확인합니다.">We check market fit, certification requirements and a realistic Korean retail price.</p>
-        </div>
-        <div class="step reveal d2">
-          <p class="step__no">03</p>
-          <h3><span data-kr="샘플·조건 협의">Sample &amp; Terms</span><small data-kr="Sample &amp; Terms">샘플·조건 협의</small></h3>
-          <p data-kr="샘플을 직접 써본 뒤 공급 조건을 협의합니다.">We use the sample ourselves, then discuss supply terms.</p>
-        </div>
-        <div class="step reveal d3">
-          <p class="step__no">04</p>
-          <h3><span data-kr="수입·인증">Import &amp; Certification</span><small data-kr="Import &amp; Certification">수입·인증</small></h3>
-          <p data-kr="필요한 인증을 준비하고 수입 통관을 진행합니다.">We prepare the required certification and clear the goods through customs.</p>
-        </div>
-        <div class="step reveal d4">
-          <p class="step__no">05</p>
-          <h3><span data-kr="출시·운영">Launch &amp; Operate</span><small data-kr="Launch &amp; Operate">출시·운영</small></h3>
-          <p data-kr="채널에 올린 뒤 판매와 리뷰, 재고를 계속 관리합니다.">Once listed, we keep managing sales, reviews and stock.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= COMPLIANCE ================= -->
   <section class="section" id="compliance">
     <div class="shell">
@@ -775,53 +655,41 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
           <h2 class="h2" data-kr="IT기기가 한국에 들어올 때 필요한 것">What Korea asks of IT hardware</h2>
         </div>
         <div class="reveal d1">
-          <p class="lead" data-kr="같은 마우스라도 유선이냐 무선이냐, 배터리가 들어가느냐에 따라 필요한 절차가 달라집니다. 아래는 IT기기를 들여올 때 문망이 확인하는 항목입니다.">
-            Two mice can need entirely different paperwork depending on whether they are wired, wireless or carry a battery. These are the items we check before an IT product is brought in.
+          <p class="lead" data-kr="같은 마우스라도 유선이냐 무선이냐, 배터리가 들어가느냐에 따라 필요한 절차가 완전히 달라집니다. 저희가 처리하는 영역입니다.">
+            Two mice can need entirely different paperwork depending on whether they are wired, wireless or carry a battery. This is the part we take on.
           </p>
         </div>
       </div>
 
       <div class="compliance">
         <div class="crow reveal">
-          <h3><span data-kr="전파법 적합성평가">Radio Conformity (RRA)</span><small data-kr="Radio Conformity (RRA)">전파법 적합성평가</small></h3>
-          <p data-kr="무선 키보드·마우스, 블루투스 및 2.4GHz 동글이 포함된 제품은 국립전파연구원(RRA) 적합성평가를 받아야 합니다. 모듈 인증 보유 여부를 먼저 확인합니다.">
-            Wireless keyboards and mice, Bluetooth devices and anything shipping with a 2.4GHz dongle require conformity assessment from the National Radio Research Agency. We first check whether the module already holds certification.
+          <h3><span data-kr="인증">Certification</span><small data-kr="Certification">인증</small></h3>
+          <p data-kr="무선 기능, 전원 방식, 배터리 내장 여부에 따라 전파법 적합성평가와 전기용품 KC 안전확인 대상이 갈립니다. 사양서를 받아 어느 쪽에 해당하는지 먼저 정리합니다.">
+            Radio conformity and KC electrical safety apply differently depending on the wireless function, how the product is powered and whether it carries a battery. We work out which apply from your spec sheet.
           </p>
         </div>
         <div class="crow reveal">
-          <h3><span data-kr="전기용품 KC 안전확인">KC Certification (Electrical Safety)</span><small data-kr="KC Certification (Electrical Safety)">전기용품 KC 안전확인</small></h3>
-          <p data-kr="어댑터, 충전기 등 전원을 직접 쓰는 구성품은 전기용품 안전관리 대상 여부를 확인하고 필요한 경우 안전확인을 진행합니다.">
-            Adapters, chargers and other mains-powered components are checked against Korea's electrical appliance safety rules, and taken through safety confirmation where required.
-          </p>
-        </div>
-        <div class="crow reveal">
-          <h3><span data-kr="배터리 내장 제품">Built-in Batteries</span><small data-kr="Built-in Batteries">배터리 내장 제품</small></h3>
-          <p data-kr="리튬 배터리가 들어간 제품은 별도 안전 요건과 운송 규정이 적용될 수 있어, 셀 사양과 시험성적서를 사전에 확인합니다.">
-            Products with lithium cells can fall under separate safety requirements and shipping rules, so we review cell specifications and test reports in advance.
+          <h3><span data-kr="통관">Customs</span><small data-kr="Customs">통관</small></h3>
+          <p data-kr="품목 분류에 따라 세율이 달라지고, 협정 대상 국가라면 적용 가능한 특혜세율이 있는지 확인합니다.">
+            Classification decides the duty rate, and where a trade agreement applies we check whether a preferential rate can be used.
           </p>
         </div>
         <div class="crow reveal">
           <h3><span data-kr="한글 표시사항">Korean Labelling</span><small data-kr="Korean Labelling">한글 표시사항</small></h3>
-          <p data-kr="수입자, 제조국, 모델명, 인증번호 등 한글 표시사항을 제품과 포장에 표기합니다. 브랜드 디자인을 해치지 않는 선에서 표기안을 제안합니다.">
-            Importer, country of manufacture, model name and certification numbers must appear in Korean on the product and packaging. We propose a layout that does not fight your packaging design.
+          <p data-kr="제품과 포장에 들어가야 하는 한글 표시를 브랜드 디자인을 해치지 않는 선에서 제안합니다.">
+            Korean-language markings are required on the product and its packaging. We propose a layout that does not fight your design.
           </p>
         </div>
         <div class="crow reveal">
-          <h3><span data-kr="수입 통관·관세">Customs &amp; Duties</span><small data-kr="Customs &amp; Duties">수입 통관·관세</small></h3>
-          <p data-kr="HS 코드 분류에 따라 관세율이 달라지며, 협정 대상 국가라면 원산지증명서로 특혜세율을 적용받을 수 있는지 확인합니다.">
-            Duty follows HS classification, and where a trade agreement applies we check whether a certificate of origin can bring a preferential rate.
-          </p>
-        </div>
-        <div class="crow reveal">
-          <h3><span data-kr="전기·전자제품 재활용(EPR)">Recycling Obligation (EPR)</span><small data-kr="Recycling Obligation (EPR)">전기·전자제품 재활용(EPR)</small></h3>
-          <p data-kr="품목에 따라 폐전기·전자제품 회수 및 재활용 의무 대상이 될 수 있어 해당 여부를 확인합니다.">
-            Depending on the product type, take-back and recycling obligations for waste electrical goods may apply. We check whether they do.
+          <h3><span data-kr="사후 의무">After Import</span><small data-kr="After Import">사후 의무</small></h3>
+          <p data-kr="품목에 따라 재활용 의무 등 수입 이후에 따라오는 책임이 있습니다. 해당 여부를 미리 확인합니다.">
+            Some product types carry obligations that continue after the goods land. We check whether yours do before you commit.
           </p>
         </div>
       </div>
 
-      <p class="note reveal" data-kr="위 항목은 개요입니다. 실제 절차와 비용은 제품 사양과 구성에 따라 달라지므로, 사양서를 받은 뒤 품목별로 확인해 알려드립니다.">
-        The list above is an overview. What actually applies, and what it costs, depends on the specification and the bill of materials — we confirm it product by product once we have your spec sheet.
+      <p class="note reveal" data-kr="어느 항목이 적용되는지는 제품 사양에 따라 달라집니다. 사양서를 보내주시면 해당하는 요건과 예상 일정을 정리해 회신드립니다.">
+        Which of these apply depends on the specification. Send us your spec sheet and we will come back with what is required and how long it takes.
       </p>
     </div>
   </section>
@@ -935,8 +803,8 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
         </div>
       </div>
 
-      <p class="note reveal" data-kr="위 로고는 한국 IT기기 유통 채널의 구성을 보여주기 위한 것으로, 문망이 모든 채널에 입점해 있다는 뜻이 아닙니다. 현재 직접 운영 중인 채널은 네이버 스마트스토어이며, 각 상표의 권리는 해당 기업에 있습니다.">
-        The logos above map how IT hardware is retailed in Korea; they do not mean Moonmang is listed with every one of them. The channel we operate today is the Naver Smart Store. All marks belong to their respective owners.
+      <p class="note reveal" data-kr="각 상표의 권리는 해당 기업에 있습니다.">
+        All trademarks are the property of their respective owners.
       </p>
     </div>
   </section>
@@ -962,18 +830,24 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
               <dd><a href="tel:+827079542573">+82 70 7954 2573</a></dd>
             </div>
             <div class="row">
-              <dt>WhatsApp</dt>
-              <dd><span class="pending" data-kr="준비 중">Coming soon</span></dd>
-            </div>
-            <div class="row">
-              <dt>LinkedIn</dt>
-              <dd><span class="pending" data-kr="준비 중">Coming soon</span></dd>
-            </div>
-            <div class="row">
               <dt data-kr="주소">Address</dt>
               <dd data-kr="(11790) 경기도 의정부시 용민로 10, 1110동 2601호">#2601, Bldg. 1110, 10 Yongmin-ro, Uijeongbu-si, Gyeonggi-do 11790, Republic of Korea</dd>
             </div>
           </dl>
+
+          <div class="reach reveal">
+            <div class="reach__qr">
+              <img src="images/whatsapp-qr.png" alt="WhatsApp QR code for Moonmang" data-kr-alt="문망 WhatsApp QR 코드" width="320" height="320">
+            </div>
+            <div class="reach__side">
+              <p class="reach__label">WhatsApp</p>
+              <p class="reach__note" data-kr="휴대폰 카메라로 코드를 비추면 바로 대화가 열립니다. 시차가 있는 지역이라면 메일보다 빠릅니다.">
+                Point your phone camera at the code to open a chat. Often quicker than email if we are in different time zones.
+              </p>
+              <a class="btn btn--ghost" href="https://www.linkedin.com/in/jungung-moon-66426a438/" target="_blank" rel="noopener noreferrer" data-kr="대표 LinkedIn 프로필">Founder on LinkedIn</a>
+            </div>
+          </div>
+
           <div class="cbtns">
             <a class="btn btn--ghost" aria-disabled="true" data-kr="회사소개서 (준비 중)">Company Profile (coming soon)</a>
           </div>
@@ -1093,10 +967,8 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
       <img src="images/logo-white.png" alt="Moonmang" data-kr-alt="문망" width="440" height="72" loading="lazy">
       <nav class="foot__nav" aria-label="Footer">
         <a href="#about" data-kr="회사소개">About</a>
-        <a href="#services" data-kr="사업영역">Services</a>
-        <a href="#process" data-kr="진행 절차">Process</a>
         <a href="#compliance" data-kr="규제 대응">Compliance</a>
-        <a href="#brands" data-kr="취급 브랜드">Brands</a>
+        <a href="#channels" data-kr="판매 채널">Channels</a>
         <a href="#contact" data-kr="문의">Contact</a>
         <a href="#privacy" id="footPrivacy" data-kr="개인정보처리방침">Privacy</a>
       </nav>
@@ -1272,6 +1144,19 @@ body.nav-open .drawer{opacity:1;visibility:visible;transform:none}
       .catch(function () { say("err", "err"); })
       .finally(function () { submitBtn.disabled = false; });
   });
+
+  /* ---------- WhatsApp QR ----------
+     The code is dropped in as an image file. Until it is there, hide the
+     card rather than show a broken thumbnail next to the LinkedIn link. */
+  var qr = document.querySelector(".reach__qr img");
+  if (qr) {
+    var hideQr = function () {
+      var card = qr.closest(".reach__qr");
+      if (card) card.hidden = true;
+    };
+    qr.addEventListener("error", hideQr);
+    if (qr.complete && qr.naturalWidth === 0) hideQr();
+  }
 
   /* ---------- privacy policy modal ---------- */
   var modal = document.getElementById("privacyModal");
